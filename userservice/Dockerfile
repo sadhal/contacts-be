@@ -8,5 +8,6 @@ WORKDIR /go/src/github.com/sadhal/contacts-be/userservice
 
 COPY . /go/src/github.com/sadhal/contacts-be/userservice
 RUN go-wrapper download && go-wrapper install
+RUN go get github.com/smartystreets/goconvey/convey
 
 CMD ["go-wrapper", "run"]

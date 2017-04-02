@@ -1,0 +1,126 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: contacts-be-go
+  annotations:
+    description: An example application written in Golang
+    tags: quickstart,golang
+    iconClass: icon-golang
+labels:
+  template: contacts-be-go
+objects:
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: contacts-be-go
+    annotations:
+      description: Exposes and load balances the application pods
+  spec:
+    ports:
+    - name: web
+      port: 6767
+      targetPort: 6767
+    selector:
+      name: contacts-be-go
+#- kind: Route
+#  apiVersion: v1
+#  metadata:
+#    name: contacts-be-go
+#  spec:
+#    host: "${APPLICATION_DOMAIN}"
+#    to:
+#      kind: Service
+#      name: contacts-be-go
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: contacts-be-go
+    annotations:
+      description: Keeps track of changes in the application image
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: contacts-be-go
+    annotations:
+      description: Defines how to build the application
+  spec:
+    source:
+      type: Git
+      git:
+        uri: "${SOURCE_REPOSITORY_URL}"
+        ref: "${SOURCE_REPOSITORY_REF}"
+      contextDir: "${CONTEXT_DIR}"
+    strategy:
+      type: Docker
+    output:
+      to:
+        kind: ImageStreamTag
+        name: contacts-be-go:latest
+    triggers:
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: "${GITHUB_WEBHOOK_SECRET}"
+    postCommit:
+      script: go test -v ./...
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: contacts-be-go
+    annotations:
+      description: Defines how to deploy the application server
+  spec:
+    strategy:
+      type: Recreate
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - contacts-be-go
+        from:
+          kind: ImageStreamTag
+          name: contacts-be-go:latest
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: contacts-be-go
+    template:
+      metadata:
+        name: contacts-be-go
+        labels:
+          name: contacts-be-go
+      spec:
+        containers:
+        - name: contacts-be-go
+          image: contacts-be-dev/contacts-be-go
+          ports:
+          - containerPort: 6767
+parameters:
+- name: SOURCE_REPOSITORY_URL
+  description: The URL of the repository with your application source code
+  value: https://github.com/sadhal/contacts-be.git
+- name: SOURCE_REPOSITORY_REF
+  description: Set this to a branch name, tag or other ref of your repository if you
+    are not using the default branch
+- name: CONTEXT_DIR
+  description: Set this to the relative path to your project if it is not in the root
+    of your repository
+  value: userservice
+- name: APPLICATION_DOMAIN
+  description: The exposed hostname that will route to the Beego service
+  value: contacts-be-go-contacts-be-dev.192.168.1.100.xip.io
+- name: GITHUB_WEBHOOK_SECRET
+  description: A secret string used to configure the GitHub webhook
+  generate: expression
+  from: "[a-zA-Z0-9]{40}"
+- name: MONGODB_DATABASE
+  description: Name of database
+  value: sampledb
+- name: MONGODB_USER
+  description: Username for connecting to database
+  value: sadhal
+- name: MONGODB_PASSWORD
+  description: Password for connecting to database
+  value: sadhal

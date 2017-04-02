@@ -83,7 +83,7 @@
         "output": {
           "to": {
             "kind": "ImageStreamTag",
-            "name": "contacts-be-dev/contacts-be-go:latest"
+            "name": "contacts-be-go:latest"
           }
         },
         "triggers": [
@@ -125,7 +125,7 @@
               ],
               "from": {
                 "kind": "ImageStreamTag",
-                "name": "contacts-be-dev/contacts-be-go:latest"
+                "name": "contacts-be-go:latest"
               }
             }
           },
@@ -173,7 +173,7 @@
     },
     {
       "name": "CONTEXT_DIR",
-      "description": "Set this to the relative path to your project if it is not in the root of your repository"
+      "description": "Set this to the relative path to your project if it is not in the root of your repository",
       "value": "userservice"
     },
     {
@@ -186,6 +186,21 @@
       "description": "A secret string used to configure the GitHub webhook",
       "generate": "expression",
       "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "MONGODB_DATABASE",
+      "description": "Name of database",
+      "value": "sampledb"
+    },
+    {
+      "name": "MONGODB_USER",
+      "description": "Username for connecting to database",
+      "value": "sadhal"
+    },
+    {
+      "name": "MONGODB_PASSWORD",
+      "description": "Password for connecting to database",
+      "value": "sadhal"
     }
   ]
 }

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"time"
 	"gopkg.in/mgo.v2/bson"
+	"os"
 )
 
 /*
@@ -37,13 +38,17 @@ type MongoClient struct {
 	mongoSession *mgo.Session
 }
 
-const (
-	MongoDBHosts = "172.30.112.82:27017"
-	AuthDatabase = "sampledb"
-	AuthUserName = "sadhal"
-	AuthPassword = "sadhal"
-	TestDatabase = "goinggo"
-)
+var MongoDBHosts = os.Getenv("MONGODB_SERVICE_HOST") + ":" + os.Getenv("MONGODB_SERVICE_PORT")
+
+//const (
+//	AuthDatabase = "sampledb"
+//	AuthUserName = "sadhal"
+//	AuthPassword = "sadhal"
+//)
+var AuthDatabase = os.Getenv("MONGODB_DATABASE")
+var AuthUserName = os.Getenv("MONGODB_USER")
+var AuthPassword = os.Getenv("MONGODB_PASSWORD")
+
 
 func (mc *MongoClient) OpenMongoDb()  {
 	mongoDBDialInfo := &mgo.DialInfo{
