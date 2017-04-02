@@ -40,14 +40,14 @@ type MongoClient struct {
 
 var MongoDBHosts = os.Getenv("MONGODB_SERVICE_HOST") + ":" + os.Getenv("MONGODB_SERVICE_PORT")
 
-//const (
-//	AuthDatabase = "sampledb"
-//	AuthUserName = "sadhal"
-//	AuthPassword = "sadhal"
-//)
-var AuthDatabase = os.Getenv("MONGODB_DATABASE")
-var AuthUserName = os.Getenv("MONGODB_USER")
-var AuthPassword = os.Getenv("MONGODB_PASSWORD")
+const (
+	AuthDatabase = "sampledb"
+	AuthUserName = "sadhal"
+	AuthPassword = "sadhal"
+)
+//var AuthDatabase = os.Getenv("MONGODB_DATABASE")
+//var AuthUserName = os.Getenv("MONGODB_USER")
+//var AuthPassword = os.Getenv("MONGODB_PASSWORD")
 
 
 func (mc *MongoClient) OpenMongoDb()  {
