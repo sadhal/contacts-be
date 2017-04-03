@@ -20,10 +20,15 @@ func (m *MockMongoClient) QueryUser(userId string) (model.User, error) {
 
 func (m *MockMongoClient) QueryUsers() ([]model.User, error) {
 	args := m.Mock.Called()
-	return args.Get(1).([]model.User), args.Error(2)
+	return args.Get(0).([]model.User), args.Error(1)
 }
 
 func (m *MockMongoClient) OpenMongoDb() {
 	// Does nothing
+}
+
+func (m *MockMongoClient) CreateUser(user *model.User) (model.User, error) {
+	args := m.Mock.Called(user)
+	return args.Get(0).(model.User), args.Error(1)
 }
 

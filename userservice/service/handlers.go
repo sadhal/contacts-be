@@ -7,9 +7,10 @@ import (
 	"encoding/json"
 	"strconv"
 	"log"
+	"github.com/sadhal/contacts-be/userservice/model"
+	"fmt"
 )
 
-//var DBClient dbclient.IBoltClient
 var MongoDbClient dbclient.IMongoClient
 
 func GetUser(w http.ResponseWriter, r *http.Request)  {
@@ -54,4 +55,29 @@ func GetUsers(w http.ResponseWriter, r *http.Request)  {
 	w.Header().Set("Content-Length", strconv.Itoa(len(data)))
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
+}
+
+func CreateUser(w http.ResponseWriter, r *http.Request)  {
+	// Stub an user to be populated from the body
+	u := model.User{}
+
+	// Populate the user data
+	json.NewDecoder(r.Body).Decode(&u)
+
+	user, err := MongoDbClient.CreateUser(&u)
+
+	if err != nil {
+		fmt.Println("CreateUser: error", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	// Marshal provided interface into JSON structure
+	uj, _ := json.Marshal(user)
+
+	// Write content-type, statuscode, payload
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Length", strconv.Itoa(len(uj)))
+	w.WriteHeader(http.StatusCreated)
+	w.Write(uj)
 }

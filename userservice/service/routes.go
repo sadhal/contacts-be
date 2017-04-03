@@ -30,4 +30,10 @@ var routes = Routes{
 		"/personer/{userId}",
 		GetUser,
 	},
+	Route{
+		"CreatePerson",
+		"POST",
+		"/personer",
+		CreateUser,
+	},
 }

@@ -10,27 +10,11 @@ import (
 	"os"
 )
 
-/*
-var mgoSession   *mgo.Session
-
-// Creates a new session if mgoSession is nil i.e there is no active mongo session.
-//If there is an active mongo session it will return a Clone
-func GetMongoSession() *mgo.Session {
-	if mgoSession == nil {
-		var err error
-		mgoSession, err = mgo.Dial(mongo_conn_str)
-		if err != nil {
-			log.Fatal("Failed to start the Mongo session")
-		}
-	}
-	return mgoSession.Clone()
-}
-*/
-
 type IMongoClient interface {
 	OpenMongoDb()
 	QueryUser(userId string) (model.User, error)
 	QueryUsers() ([]model.User, error)
+	CreateUser(user *model.User) (model.User, error)
 }
 
 // Real implementation
@@ -112,4 +96,23 @@ func (mc *MongoClient) QueryUsers() ([]model.User, error) {
 	}
 
 	return all, nil
+}
+
+func (mc *MongoClient) CreateUser(user *model.User) (model.User, error) {
+	c := mc.mongoSession.DB("sampledb").C("personer")
+
+	// Optional. Switch the session to a monotonic behavior.
+	mc.mongoSession.SetMode(mgo.Monotonic, true)
+	fmt.Println("Creating user in Mongodb: ", user)
+
+	// Add an Id
+	user.Id = bson.NewObjectId()
+
+	err := c.Insert(user)
+	// If there were an error, return the error
+	if err != nil {
+		log.Fatal("error occured:", err.Error())
+		return model.User{}, err
+	}
+	return *user, nil
 }
