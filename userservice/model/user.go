@@ -6,10 +6,10 @@ import (
 )
 
 type User struct {
-	FirstName 	string		`json:"firstName"`
-	LastName 	string		`json:"lastName"`
+	FirstName 	string		`json:"firstName" bson:"firstName"`
+	LastName 	string		`json:"lastName" bson:"lastName"`
 	Email		string		`json:"email"`
-	TwitterHandle	string		`json:"twitterHandle"`
-	CreatedOn 	time.Time	`json:"createdOn"`
+	TwitterHandle	string		`json:"twitterHandle" bson:"twitterHandle"`
+	CreatedOn 	time.Time	`json:"createdOn,Date" bson:"createdDate"`
 	Id		bson.ObjectId 	`json:"id" bson:"_id,omitempty"`
 }

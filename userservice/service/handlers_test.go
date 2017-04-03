@@ -184,7 +184,7 @@ func TestCreateUserHappyPath(t *testing.T) {
 			"firstName":	"yo",
 			"email":   	"e@a.se",
 		}
-		
+
 		jsonPayload, _ := json.Marshal(payload)
 		reader := bytes.NewReader(jsonPayload)
 		reader.Len()
