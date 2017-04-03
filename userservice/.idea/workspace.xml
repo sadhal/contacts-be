@@ -16,6 +16,18 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="user.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/user.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+              <folding>
+                <element signature="e#15#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="handlers.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/handlers.go">
           <provider selected="true" editor-type-id="text-editor">
@@ -28,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="handlers_test.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="handlers_test.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/service/handlers_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+            <state relative-caret-position="487">
+              <caret line="186" column="16" lean-forward="false" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="16" />
               <folding>
                 <element signature="e#17#275#0" expanded="true" />
               </folding>
@@ -50,7 +62,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="oc_template.yaml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="oc_template.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/oc_template.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
@@ -139,7 +151,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/model/user.go" />
         <option value="$PROJECT_DIR$/dbclient/boltclient.go" />
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/oc_template.json" />
@@ -149,8 +160,9 @@
         <option value="$PROJECT_DIR$/dbclient/mongoclient.go" />
         <option value="$PROJECT_DIR$/dbclient/mockclient.go" />
         <option value="$PROJECT_DIR$/service/handlers.go" />
-        <option value="$PROJECT_DIR$/service/handlers_test.go" />
         <option value="$PROJECT_DIR$/oc_template.yaml" />
+        <option value="$PROJECT_DIR$/model/user.go" />
+        <option value="$PROJECT_DIR$/service/handlers_test.go" />
       </list>
     </option>
   </component>
@@ -785,16 +797,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/user.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="13" column="40" lean-forward="false" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
-          <folding>
-            <element signature="e#15#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oc_template.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="630">
@@ -867,21 +869,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/handlers_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="107" column="0" lean-forward="false" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#275#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/oc_template.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="65" column="1" lean-forward="false" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/user.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="51" lean-forward="false" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+          <folding>
+            <element signature="e#15#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/handlers_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="186" column="16" lean-forward="false" selection-start-line="186" selection-start-column="16" selection-end-line="186" selection-end-column="16" />
+          <folding>
+            <element signature="e#17#275#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

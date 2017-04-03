@@ -11,5 +11,5 @@ type User struct {
 	Email		string		`json:"email"`
 	TwitterHandle	string		`json:"twitterHandle"`
 	CreatedOn 	time.Time	`json:"createdOn"`
-	Id		bson.ObjectId 	`bson:"_id,omitempty"`
+	Id		bson.ObjectId 	`json:"id" bson:"_id,omitempty"`
 }
