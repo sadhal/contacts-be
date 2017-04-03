@@ -97,7 +97,6 @@ func TestCreateUserSadPath(t *testing.T) {
 	timeNow := time.Now()
 
 	nokUser := &model.User{ FirstName: "notOkUser", CreatedOn: timeNow}
-	//nokUserString := `{"firstName": "notOkUser"}`
 
 	// Sad path
 	mockRepo.On("CreateUser", nokUser).Return(model.User{}, fmt.Errorf("Some error"))

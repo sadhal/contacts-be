@@ -62,8 +62,8 @@ objects:
     - type: GitHub
       github:
         secret: "${GITHUB_WEBHOOK_SECRET}"
-    postCommit:
-      script: go test -v ./...
+#    postCommit:
+#      script: go test -v ./...
 - kind: DeploymentConfig
   apiVersion: v1
   metadata:
