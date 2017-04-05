@@ -56,17 +56,29 @@ func (mc *MongoClient) QueryUser(userId string) (model.User, error) {
 	// Allocate an empty User instance we'll let json.Unmarshal populate for us in a bit.
 	user := model.User{}
 
+	session := mc.mongoSession.Copy()
+	defer session.Close()
 	//defer mc.mongoDB.Close()
-	//mc.mongoDB.SetMode(mgo.Monotonic, true)
+	session.SetMode(mgo.Monotonic, true)
 
-	c := mc.mongoSession.DB("sampledb").C("personer")
+	//c := mc.mongoSession.DB("sampledb").C("personer")
+	c := session.DB("sampledb").C("personer")
 
 
 	fmt.Println("Quering Mongodb for user with id", userId)
-	err := c.FindId(bson.M{"_id": bson.ObjectIdHex(userId)}).One(&user)
-	//err := c.Find(bson.M{"firstName": "fname1"}).One(&user)
+	//err := c.FindId(bson.M{"_id": bson.ObjectIdHex(userId)}).One(&user)
+	//err := c.Find(bson.M{"firstName": "firstName_189"}).One(&user)
+	//err := c.FindId(userId).One(&user)
+	//err := c.Find(bson.M{"_id": userId}).One(&user)
+	err := c.FindId(bson.ObjectIdHex(userId)).One(&user)
 	if err != nil {
-		log.Fatal("error occured:", err)
+		fmt.Println("error occured:", err)
+		qerr, other := err.(*mgo.QueryError)
+		fmt.Println("qerr: ", qerr)
+		fmt.Println("other: ", other)
+		lerr, other2 := err.(*mgo.LastError)
+		fmt.Println("lerr: ", lerr)
+		fmt.Println("other2: ", other2)
 	}
 
 
@@ -82,10 +94,13 @@ func (mc *MongoClient) QueryUsers() ([]model.User, error) {
 	// Allocate an empty User instance we'll let json.Unmarshal populate for us in a bit.
 	var all []model.User
 
+	session := mc.mongoSession.Copy()
+	defer session.Close()
 	//defer mc.mongoDB.Close()
-	//mc.mongoDB.SetMode(mgo.Monotonic, true)
+	session.SetMode(mgo.Monotonic, true)
 
-	c := mc.mongoSession.DB("sampledb").C("personer")
+	//c := mc.mongoSession.DB("sampledb").C("personer")
+	c := session.DB("sampledb").C("personer")
 
 	fmt.Println("Quering Mongodb for all users")
 	errQ := c.Find(nil).All(&all)
@@ -99,10 +114,12 @@ func (mc *MongoClient) QueryUsers() ([]model.User, error) {
 }
 
 func (mc *MongoClient) CreateUser(user *model.User) (model.User, error) {
-	c := mc.mongoSession.DB("sampledb").C("personer")
+	session := mc.mongoSession.Copy()
+	defer session.Close()
+	session.SetMode(mgo.Monotonic, true)
 
-	// Optional. Switch the session to a monotonic behavior.
-	mc.mongoSession.SetMode(mgo.Monotonic, true)
+	//c := mc.mongoSession.DB("sampledb").C("personer")
+	c := session.DB("sampledb").C("personer")
 	fmt.Println("Creating user in Mongodb: ", user)
 
 	// Add an Id
